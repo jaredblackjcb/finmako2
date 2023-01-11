@@ -8,9 +8,6 @@ module.exports = {
     'site-base': './assets/site-base.js',  // base styles shared between frameworks
     'site-bulma': './assets/site-bulma.js',  // required for bulma styles
     app: './assets/javascript/app.js',
-    pegasus: './assets/javascript/pegasus/pegasus.js',
-    'react-object-lifecycle': './assets/javascript/pegasus/examples/react/react-object-lifecycle.js',
-    'vue-object-lifecycle': './assets/javascript/pegasus/examples/vue/vue-object-lifecycle.js',
   },
   output: {
     path: path.resolve(__dirname, './static'),
