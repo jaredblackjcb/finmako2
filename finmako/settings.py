@@ -95,6 +95,8 @@ PROJECT_APPS = [
     'apps.subscriptions.apps.SubscriptionConfig',
     'apps.users.apps.UserConfig',
     'apps.web',
+    'apps.backtester',
+    'apps.calculator',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + PROJECT_APPS + WAGTAIL_APPS
