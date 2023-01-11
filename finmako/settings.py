@@ -89,11 +89,6 @@ WAGTAIL_APPS = [
     'taggit',
 ]
 
-PEGASUS_APPS = [
-    'pegasus.apps.examples.apps.PegasusExamplesConfig',
-    'pegasus.apps.employees.apps.PegasusEmployeesConfig',
-]
-
 # Put your project-specific apps here
 PROJECT_APPS = [
     'apps.content',
@@ -102,7 +97,7 @@ PROJECT_APPS = [
     'apps.web',
 ]
 
-INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + PEGASUS_APPS + PROJECT_APPS + WAGTAIL_APPS
+INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + PROJECT_APPS + WAGTAIL_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -151,21 +146,16 @@ FORM_RENDERER = 'django.forms.renderers.TemplatesSetting'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-if 'DATABASE_URL' in env:
-    DATABASES = {
-        'default': env.db()
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': env('DJANGO_DATABASE_NAME'),
+        'USER': env('DJANGO_DATABASE_USER'),
+        'PASSWORD': env('DJANGO_DATABASE_PASSWORD'),
+        'HOST': env('DJANGO_DATABASE_HOST'),
+        'PORT': env('DJANGO_DATABASE_PORT'),
     }
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': env('DJANGO_DATABASE_NAME', default='finmako'),
-            'USER': env('DJANGO_DATABASE_USER', default='postgres'),
-            'PASSWORD': env('DJANGO_DATABASE_PASSWORD', default='***'),
-            'HOST': env('DJANGO_DATABASE_HOST', default='localhost'),
-            'PORT': env('DJANGO_DATABASE_PORT', default='5432'),
-        }
-    }
+}
 
 # Auth / login stuff
 
