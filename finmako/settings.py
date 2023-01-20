@@ -68,6 +68,7 @@ THIRD_PARTY_APPS = [
     'djstripe',  # stripe integration
     'whitenoise.runserver_nostatic',  # whitenoise runserver
     'waffle',
+    'widget_tweaks'
 ]
 
 WAGTAIL_APPS = [

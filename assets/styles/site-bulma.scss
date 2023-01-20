@@ -2,11 +2,41 @@
 // any customizations you want to make to bulma should go here
 // see https://bulma.io/documentation/customize/ for more information
 
-$link: hsl(217, 71%, 53%);  // copied from bulma
-$primary: $link;  // make link-blue the primary color
+// Import a Google Font
+@import url('https://fonts.googleapis.com/css?family=Nunito:400,700');
+
+// Set your brand colors
+$green: #19B77E;
+$background-light: #F0F0F0;
+$dark-blue: #252E3C;
+$purple: #8A4D76;
+$pink: #FA7C91;
+$brown: #757763;
+$beige-light: #D0D1CD;
+$beige-lighter: #EFF0EB;
+
+// Update Bulma's global variables
+$family-sans-serif: "Nunito", sans-serif;
+$grey-dark: $dark-blue;
+$grey-light: $beige-light;
+$primary: $green;
+$link: $pink;
+$widescreen-enabled: false;
+// $fullhd-enabled: false;
+$input-focus-border-color: $green;
+$input-focus-box-shadow-color: #c8c8c8;
+$background-dark: $dark-blue;
+
+// Update some of Bulma's component variables
+$body-background-color: $background-light;
+$control-border-width: 2px;
+$input-border-color: transparent;
+$input-shadow: none;
+
+// $link: hsl(217, 71%, 53%);  // copied from bulma
+// $primary: $link;  // make link-blue the primary color
 $bg-grey: hsl(0, 0%, 98%);
 $default-shadow: 0 2px 4px rgba(55, 63, 67, 0.3);
-$body-background-color: $bg-grey;
 
 $navbar-item-active-color: $link;
 $menu-item-active-background-color: $link;

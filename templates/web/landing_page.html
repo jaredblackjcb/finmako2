@@ -2,25 +2,36 @@
 {% load i18n %}
 {% load static %}
 {% block body %}
-<section class="section container">
-  <div class="pg-columns pg-columns-reversed pg-align-items-center">
-    <div class="pg-column">
-      <img class="img-fluid" src="{% static 'images/undraw/undraw_outer_space.svg' %}" alt="{% translate "Fly Away!" %}">
-    </div>
-    <div class="pg-column">
-      <h1 class="pg-title">{{project_meta.NAME}}</h1>
-      <h2 class="pg-subtitle">
-        {{project_meta.DESCRIPTION}}
-      </h2>
-      <p class="buttons">
-        <a class="pg-button-primary" href="{% url 'account_signup' %}">
-          {% translate "Create account" %}
-        </a>
-        <a class="pg-button-secondary" href="{% url 'account_login' %}">
-          {% translate "Sign In" %}
-        </a>
-      </p>
-    </div>
-  </div>
+<section class="hero section container">
+  <div class="hero-body">
+      <div class="container">
+          <div class="content is-medium">
+            <div class="columns">
+              <div class="column is-7">
+          <h1 class="title is-2">Optimize your finances.</h1>
+              <p class="subtitle">There is a lot of conflicting financial advice out there. Our personalized tools and guides
+                  will help you cut through the noise and make the best decisions for your financial future.</p>
+                  <p class="subtitle">Here is a sneak peek at some of our upcoming features:</p>
+                  <ul>
+                      <li>Refine your investment strategy by adding metric-based buy and sell triggers to the backtester</li>
+                      <li>Save and compare scenarios to help make the best possible decision</li>
+                      <li>Securely connect to your financial accounts using Plaid for AI-assisted decision making</li>
+                      <li>Investing guides and educational content to help you take control of your finances</li>
+                  </ul>
+                  <p class="buttons">
+                    <a class="pg-button-primary is-medium" href="{% url 'account_signup' %}">
+                      {% translate "Create account" %}
+                    </a>
+                    <a class="pg-button-secondary is-medium" href="{% url 'account_login' %}">
+                      {% translate "Sign In" %}
+                    </a>
+                  </p>
+                  </div>
+                  <div class="column">
+                    <img class="img-fluid" src="{% static 'images/undraw/undraw_outer_space.svg' %}" alt="{% translate "Fly Away!" %}">
+                  </div>
+          </div>
+      </div>
+  </div>    
 </section>
 {% endblock %}
