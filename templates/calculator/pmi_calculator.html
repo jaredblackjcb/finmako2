@@ -1,9 +1,9 @@
-<!DOCTYPE html>
-{% extends "web/base.html" %}
+{% extends "web/app/app_base.html" %}
+{% load static %}
 {% load widget_tweaks %}
-{% block body %}
+{% block app %}
 <!-- PMI Calculator Description -->
-<section class="section" id="pmi-info">
+<section class="section pb-3" id="pmi-info">
     <div class="tile is-ancestor">
         <div class="tile is-parent">
             <div class="tile is-child box has-background-light">
@@ -20,7 +20,7 @@
 </section>
 
 <!-- Calculator Form -->
-<section class="section" id="pmi-calculator-form">
+<section class="section pt-0 pb-3" id="pmi-calculator-form">
     <div class="tile is-ancestor">
         <div class="tile is-parent">
             <div class="tile is-child box has-background-light">
@@ -107,7 +107,7 @@
 
 <!-- Data Table -->
 {% if paydown_month %}
-<section id="pmi-data">
+<section class="section pt-0" id="pmi-data">
     <div class="tile is-ancestor">
         <div class="tile is-parent">
             <div class="tile is-child box has-background-light">
@@ -143,6 +143,6 @@
         </div>
     </div>
 </section>
+<script src="{% static 'js/calculator-bundle.js' %}"></script> 
 {% endif %}
-
 {% endblock %}

@@ -9,6 +9,7 @@ module.exports = {
     'site-bulma': './assets/site-bulma.js',  // required for bulma styles
     app: './assets/javascript/app.js',
     backtester: './assets/javascript/backtester/charts.js',
+    calculator: './assets/javascript/calculator/pmi-calculator.js',
   },
   output: {
     path: path.resolve(__dirname, './static'),

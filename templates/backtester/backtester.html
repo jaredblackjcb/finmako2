@@ -1,4 +1,6 @@
-{% extends "web/base.html" %} {% load widget_tweaks %} {% block body %}
+{% extends "web/app/app_base.html" %}
+{% load widget_tweaks %}
+{% block app %}
 {% load static %}
 <!-- Notifications -->
 {% if messages %} {% for message in messages %}
