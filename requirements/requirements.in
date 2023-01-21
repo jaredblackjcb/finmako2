@@ -16,3 +16,5 @@ celery[redis]
 sentry-sdk
 wagtail
 whitenoise[brotli]
+pandas
+backtrader

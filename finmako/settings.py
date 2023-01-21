@@ -68,6 +68,7 @@ THIRD_PARTY_APPS = [
     'djstripe',  # stripe integration
     'whitenoise.runserver_nostatic',  # whitenoise runserver
     'waffle',
+    'widget_tweaks'
 ]
 
 WAGTAIL_APPS = [
@@ -95,6 +96,8 @@ PROJECT_APPS = [
     'apps.subscriptions.apps.SubscriptionConfig',
     'apps.users.apps.UserConfig',
     'apps.web',
+    'apps.backtester',
+    'apps.calculator',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + PROJECT_APPS + WAGTAIL_APPS

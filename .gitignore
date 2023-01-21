@@ -18,5 +18,8 @@ _dist/
 .DS_Store
 
 # uncomment these lines after setting up the front-end build pipeline in dev and production
-# static/css/
-# static/js/
+static/css/
+static/js/
+
+google_client_secret.json
+.vscode/

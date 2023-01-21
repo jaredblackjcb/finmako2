@@ -1,0 +1,148 @@
+{% extends "web/app/app_base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+{% block app %}
+<!-- PMI Calculator Description -->
+<section class="section pb-3" id="pmi-info">
+    <div class="tile is-ancestor">
+        <div class="tile is-parent">
+            <div class="tile is-child box has-background-light">
+                <div class="content is-medium">
+                <h1 class="subtitle is-3">What is private mortgage insurance?</h1>
+                    <p>You may be required to purchase private mortgage insurance (PMI) for your home loan if your down payment is less than 20% of the purchase price. It is typically a fixed monthly payment that can be removed as soon as your equity reaches the 20% mark. The fact that PMI is a fixed monthly payment creates an interesting question:</p>
+                    <h1 class="subtitle is-5"><strong>At what point does it make sense to put extra money toward paying down your mortgage rather than investing in the market?</strong></h1>
+                    <p>Think about your PMI payment as an extra interest payment on the amount of cash it would take to get you to 20% equity in your home. Let's say your monthly PMI payment is $100. You will pay $100 every month whether that amount is $50,000 or $500. That means that your effective “interest rate” increases the closer your get to your goal. At some point, you could be paying over 100% annual interest!</p>
+                    <p>This calculator will show you exactly what interest rate you're paying every month due to PMI. If that rate exceeds the investment returns you could get from the market, you should begin paying off your mortgage as quickly as possible until you reach 20% equity and can remove the PMI payment.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Calculator Form -->
+<section class="section pt-0 pb-3" id="pmi-calculator-form">
+    <div class="tile is-ancestor">
+        <div class="tile is-parent">
+            <div class="tile is-child box has-background-light">
+                <h1 class="title is-3">PMI Calculator</h1>
+                <form method="POST">
+                <div class="columns">
+                    <div class="column is-4">
+                            {% csrf_token %}
+                            <!-- Purchase Price -->
+                            <div class="field">
+                                <label class="label">{{ form.purchase_price.label }}</label>
+                                    <div class="bulma-control-mixin control has-icons-left">
+                                        {% render_field form.purchase_price class="input bulma-control-mixin" %}
+                                        <span class="icon is-left">
+                                            <i class="fa-solid fa-dollar-sign"></i>
+                                        </span>
+                                    </div>
+                                    <p class="help">{{form.purchase_price.help_text}}</p>
+                            </div>
+                            <!-- Down Payment -->
+                            <div class="field">
+                                <label class="label">{{ form.down_payment.label }}</label>
+                                <div class="bulma-control-mixin control has-icons-right">
+                                    {% render_field form.down_payment class="input bulma-control-mixin" %}
+                                    <span class="icon is-right">
+                                        <i class="fa-solid fa-percent"></i>
+                                    </span>
+                                </div>
+                                <p class="help">{{form.down_payment.help_text}}</p>
+                            </div>
+                    </div>  
+                    <div class="column is-4">
+                        <!-- Interest Rate -->
+                        <div class="field">
+                            <label class="label">{{ form.interest_rate.label }}</label>
+                                <div class="bulma-control-mixin control has-icons-right">
+                                    {% render_field form.interest_rate class="input bulma-control-mixin" %}
+                                    <span class="icon is-right">
+                                        <i class="fa-solid fa-percent"></i>
+                                    </span>
+                                </div>
+                                <p class="help">{{form.interest_rate.help_text}}</p>
+                        </div>
+                        <!-- Loan Term -->
+                        <div class="field">
+                            <label class="label">{{ form.loan_term.label }}</label>
+                                <div class="bulma-control-mixin control">
+                                    {% render_field form.loan_term class="input bulma-control-mixin" %}
+                                </div>
+                                <p class="help">{{form.loan_term.help_text}}</p>
+                        </div>
+                    </div>
+                    <div class="column is-4">
+                        <!-- Monthly PMI Payment -->
+                        <div class="field">
+                            <label class="label">{{ form.monthly_pmi_payment.label }}</label>
+                                <div class="bulma-control-mixin control has-icons-left">
+                                    {% render_field form.monthly_pmi_payment class="input bulma-control-mixin" %}
+                                    <span class="icon is-left">
+                                        <i class="fa-solid fa-dollar-sign"></i>
+                                    </span>
+                                </div>
+                                <p class="help">{{form.monthly_pmi_payment.help_text}}</p>
+                        </div>
+                        <!-- Opportunity Cost -->
+                        <div class="field">
+                            <label class="label">{{ form.opportunity_cost_roi.label }}</label>
+                            <div class="bulma-control-mixin control has-icons-right">
+                                {% render_field form.opportunity_cost_roi class="input bulma-control-mixin" %}
+                                <span class="icon is-right">
+                                    <i class="fa-solid fa-percent"></i>
+                                </span>
+                            </div>
+                            <p class="help">{{form.opportunity_cost_roi.help_text}}</p>
+                        </div>
+                    </div>
+                </div>
+                    <input class="button is-primary is-medium" type="submit" value="Submit"/>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Data Table -->
+{% if paydown_month %}
+<section class="section pt-0" id="pmi-data">
+    <div class="tile is-ancestor">
+        <div class="tile is-parent">
+            <div class="tile is-child box has-background-light">
+                <div class="content is-medium">
+                    <h1 class="subtitle is-3">Here's the monthly breakdown:</h1>
+                    <p>Starting in month {{paydown_month}} of your loan, it makes more sense to put extra money toward principal rather than investing it in the market. Keep paying down your loan until you reach 20% equity and can remove mortgage insurance.</p>
+                </div>
+                <table class="table is-hoverable">
+                    <thead>
+                        <tr>
+                            <th>Month</th>
+                            <th>Principal Paydown</th>
+                            <th>Interest Payment</th>
+                            <th>Loan Amount</th>
+                            <th>Amount Needed to Cancel PMI</th>
+                            <th>Effective Annual Borrowing Cost of PMI</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for index, row in pmi_data.iterrows %}
+                        <tr>
+                          {% for cell in row %}
+                            <td>
+                              {{cell}}
+                            </td>
+                          {% endfor %}
+                        </tr>
+                      {% endfor %}
+                    </tbody>
+                    </table>
+
+            </div>
+        </div>
+    </div>
+</section>
+<script src="{% static 'js/calculator-bundle.js' %}"></script> 
+{% endif %}
+{% endblock %}

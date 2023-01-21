@@ -1,0 +1,150 @@
+{% extends "web/app/app_base.html" %}
+{% load widget_tweaks %}
+{% block app %}
+{% load static %}
+<!-- Notifications -->
+{% if messages %} {% for message in messages %}
+<!-- Error Message -->
+<article class="message is-danger">
+  <div class="message-header">
+    <p>Error</p>
+    <button class="delete" aria-label="delete"></button>
+  </div>
+  <div class="message-body">{{ message.message }}</div>
+</article>
+{% endfor %} {% endif %}
+<section class="section pb-3" id="backtest-form">
+  <div class="container">
+    <div class="tile is-ancestor">
+      <div class="tile is-parent">
+        <div class="tile is-child box has-background-light">
+          <h1 class="title is-3">Backtest your Investment Strategy</h1>
+          <div class="columns">
+            <div class="column is-4">
+              <form method="POST">
+                {% csrf_token %}
+                <!-- Ticker Symbol -->
+                <div class="field">
+                  <label class="label">{{ form.ticker.label }}</label>
+                  {% render_field form.ticker class="input bulma-control-mixin" %}
+                  <p class="help">{{form.ticker.help_text}}</p>
+                </div>
+                <!-- Start Date -->
+                <div class="field">
+                  <label class="label">{{ form.start_date.label }}</label>
+                  {% render_field form.start_date type="date" class="input bulma-control-mixin" %}
+                </div>
+                <!-- End Date -->
+                <div class="field">
+                  <label class="label">{{ form.end_date.label }}</label>
+                  {% render_field form.end_date type="date" class="input bulma-control-mixin" %}
+                </div>
+                <!-- Monthly Investment -->
+                <div class="field">
+                  <label class="label"
+                    >{{ form.monthly_investment.label }}</label
+                  >
+                  <div class="bulma-control-mixin control has-icons-left">
+                    {% render_field form.monthly_investment class="input bulma-control-mixin" %}
+                    <span class="icon is-left">
+                      <i class="fa-solid fa-dollar-sign"></i>
+                    </span>
+                  </div>
+                  <p class="help">{{form.monthly_investment.help_text}}</p>
+                </div>
+                <input
+                  class="button is-primary is-medium"
+                  type="submit"
+                  value="Submit"
+                />
+              </form>
+            </div>
+            <div class="column is-1"></div>
+            <div class="column is-7">
+              {% if backtest_data %}
+              <h2 class="subtitle is-5">
+                <strong>Total Invested: </strong>
+                ${{backtest_data.amount_invested}}
+              </h2>
+              <h2 class="subtitle is-5">
+                <strong>Total Shares Purchased: </strong
+                >{{backtest_data.shares_purchased}}
+              </h2>
+              <h2 class="subtitle is-5">
+                <strong>Ending Portfolio Value: </strong
+                >${{backtest_data.end_portfolio_value}}
+              </h2>
+              <h2 class="subtitle is-5">
+                <strong>Years in Market: </strong
+                >{{backtest_data.years_in_market}}
+              </h2>
+              <h2 class="subtitle is-5">
+                <strong>Total Gain/Loss: </strong
+                >${{backtest_data.total_dollar_return}}
+              </h2>
+              <h2 class="subtitle is-5">
+                <strong>Total Return: </strong
+                >{{backtest_data.total_percent_return}}%
+              </h2>
+              <h2 class="subtitle is-5">
+                <strong>Annualized Return: </strong
+                >{{backtest_data.annualized_return}}%
+              </h2>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</section>
+
+{% if backtest_data %}
+<!-- Chart -->
+<section class="section pt-0 pb-3" id="chart-section">
+  <div class="tile is-ancestor">
+    <div class="tile is-parent">
+      <div class="tile is-child box has-background-light">
+        {{ backtest_data.trade_dates|json_script:"trade_dates"}}
+        {{ backtest_data.investment_totals|json_script:"investment_totals"}} 
+        {{ backtest_data.portfolio_values|json_script:"portfolio_values"}}
+        <div class="chart-container" id="chart-container"></div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Data Table -->
+<section class="section pt-0" id="backtest-data">
+  <div class="tile is-ancestor">
+    <div class="tile is-parent">
+      <div class="tile is-child box has-background-light">
+        <div class="content is-medium">
+          <h1 class="subtitle is-3">Investment Activity</h1>
+        </div>
+        <table class="table is-hoverable">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Action</th>
+              <th>Purchase Price</th>
+              <th>Shares Purchased</th>
+              <th>Amount Invested</th>
+              <th>Portfolio Value</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for index, row in backtest_data.order_logs_df.iterrows %}
+            <tr>
+              {% for cell in row %}
+              <td>{{cell}}</td>
+              {% endfor %}
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+<script src="{% static 'js/backtester-bundle.js' %}"></script> 
+{% endif %} {% endblock %}

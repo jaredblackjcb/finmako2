@@ -14,6 +14,11 @@
         <span class="pg-icon"><i class="fa fa-desktop"></i></span><span class="is-hidden-tablet-only">Subscription Demo</span>
       </a>
     </li>
+    <li>
+      <a href="{% url 'backtester:backtester' %}" {% if active_tab == 'backtester' %}class="is-active"{% endif %}>
+        <span class="pg-icon"><i class="fa fa-chart-simple"></i></span><span class="is-hidden-tablet-only">Backtester</span>
+      </a>
+    </li>
   </ul>
   <p class="menu-label is-hidden-tablet-only">
     {% translate "My Account" %}

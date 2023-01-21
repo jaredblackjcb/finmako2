@@ -68,4 +68,8 @@ urlpatterns = [
     path('cms/', include(wagtailadmin_urls)),
     path('documents/', include(wagtaildocs_urls)),
     path('content/', include(wagtail_urls)),
+
+    #finmako core pages
+    path('calculator/', include('apps.calculator.urls')),
+    path('backtester/', include('apps.backtester.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

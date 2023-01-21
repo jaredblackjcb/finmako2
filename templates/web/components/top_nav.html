@@ -14,6 +14,18 @@
     </div>
     <div class="navbar-menu" id="nav-menu">
       <div class="navbar-start">
+        <a class="navbar-item" href="{% url 'backtester:backtester' %}">
+          Investment Backtester
+        </a>  
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link">
+            Calculators
+          </a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="{% url 'calculator:pmi_calculator' %}">Mortgage Insurance</a>
+            <a class="navbar-item" href="{% url 'calculator:annuity_calculator' %}">Future Value of Annuity</a>
+          </div>
+        </div>
         {% slugurl 'blog' as blog_url %}
         <a class="navbar-item {% if blog_url in request.path %}is-active{% endif %}" href="{{ blog_url }}">
           {% translate "Blog" %}
