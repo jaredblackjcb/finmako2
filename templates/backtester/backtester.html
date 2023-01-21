@@ -1,5 +1,5 @@
-<!DOCTYPE html>
 {% extends "web/base.html" %} {% load widget_tweaks %} {% block body %}
+{% load static %}
 <!-- Notifications -->
 {% if messages %} {% for message in messages %}
 <!-- Error Message -->
@@ -11,7 +11,7 @@
   <div class="message-body">{{ message.message }}</div>
 </article>
 {% endfor %} {% endif %}
-<section class="section" id="backtest-form">
+<section class="section pb-3" id="backtest-form">
   <div class="container">
     <div class="tile is-ancestor">
       <div class="tile is-parent">
@@ -94,25 +94,24 @@
         </div>
       </div>
     </div>
-  </div>
 </section>
 
 {% if backtest_data %}
 <!-- Chart -->
-<section id="chart-section">
+<section class="section pt-0 pb-3" id="chart-section">
   <div class="tile is-ancestor">
     <div class="tile is-parent">
       <div class="tile is-child box has-background-light">
-        {{ backtest_data.trade_dates|json_script:"trade_dates"}} {{
-        backtest_data.investment_totals|json_script:"investment_totals"}} {{
-        backtest_data.portfolio_values|json_script:"portfolio_values"}}
+        {{ backtest_data.trade_dates|json_script:"trade_dates"}}
+        {{ backtest_data.investment_totals|json_script:"investment_totals"}} 
+        {{ backtest_data.portfolio_values|json_script:"portfolio_values"}}
         <div class="chart-container" id="chart-container"></div>
       </div>
     </div>
   </div>
 </section>
 <!-- Data Table -->
-<section id="backtest-data">
+<section class="section pt-0" id="backtest-data">
   <div class="tile is-ancestor">
     <div class="tile is-parent">
       <div class="tile is-child box has-background-light">
@@ -143,5 +142,7 @@
       </div>
     </div>
   </div>
+</div>
 </section>
+<script src="{% static 'js/backtester-bundle.js' %}"></script> 
 {% endif %} {% endblock %}
