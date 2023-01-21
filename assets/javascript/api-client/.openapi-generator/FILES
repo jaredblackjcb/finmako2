@@ -1,13 +1,7 @@
-apis/PegasusApi.ts
 apis/SubscriptionsApi.ts
 apis/index.ts
 index.ts
-models/AggregateEmployeeData.ts
 models/CreateCheckout.ts
-models/DepartmentEnum.ts
-models/Employee.ts
-models/PaginatedEmployeeList.ts
-models/PatchedEmployee.ts
 models/Price.ts
 models/Product.ts
 models/ProductMetadata.ts
